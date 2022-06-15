@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 export function ResgistrationView(props) {
   const [ username, setUsername ] = useState('');
@@ -14,29 +18,33 @@ export function ResgistrationView(props) {
   }
 
   return (
-    <form>
-      <label>
-        Username:
-        <input type="text" value={username} onChange={event => setUsername(event.target.value)} />
-      </label>
-      
-      <label>
-        Password:
-        <input type="password" value={password} onChange={event => setPassword(event.target.value)} />
-      </label>
-      
-      <label>
-        Email:
-        <input type="text" value={email} onChange={event => setEmail(event.target.value)} />
-      </label>
+    <Row className='justify-content-sm-center'>
+      <Col sm ={10} md={8} lg={6} xl={5}>
+        <Form>
+          <Form.Group controlId='formUsername'>
+            <Form.Label>Username:</Form.Label>
+            <From.Control type="text" onChange={event => setUsername(event.target.value)} />
+          </Form.Group>
+          
+          <Form.Group controlId='formPassword'>
+            <Form.Label>Password:</Form.Label>
+            <From.Control type="password" onChange={event => setPassword(event.target.value)} />
+          </Form.Group>
 
-      <label>
-        Birthday:
-        <input type="text" value={birthday} onChange={event => setBirthday(event.target.value)} />
-      </label>
+          <Form.Group controlId='formEmail'>
+            <Form.Label>Email:</Form.Label>
+            <From.Control type="text" onChange={event => setEmail(event.target.value)} />
+          </Form.Group>
 
-      <button type="submit" onClick={handleSubmit}>Submit</button>
-    </form>
+          <Form.Group controlId='formBirthday'>
+            <Form.Label>Birthday:</Form.Label>
+            <From.Control type="text" onChange={event => setBirthday(event.target.value)} />
+          </Form.Group>
+
+          <Button variant='primary' type="submit" onClick={handleSubmit}>Submit</Button>
+        </Form>
+      </Col>
+    </Row>
   )
 }
 

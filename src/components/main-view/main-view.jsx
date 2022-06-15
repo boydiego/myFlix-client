@@ -1,6 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
@@ -38,12 +40,20 @@ export default class MainView extends React.Component {
     if (movies.length === 0) return <div className="main-view" />;
 
     return (
-      <div className="main-view">
+      <Row className='justify-content-md-center main-view'>
         {selectedMovie
-          ? <MovieView movie={selectedMovie} onBackClick={newSelectedMovie => { this.setSelectedMovie(newSelectedMovie) }} />
-          : movies.map(movie => <MovieCard key={movie._id} movie={movie} onMovieClick={newSelectedMovie => { this.setSelectedMovie(newSelectedMovie); }} /> )
+          ? (
+            <Col md={10} lg={9} xl={8}>
+            <MovieView movie={selectedMovie} onBackClick={newSelectedMovie => { this.setSelectedMovie(newSelectedMovie) }} />
+            </Col>
+          )
+          : movies.map(movie => (
+            <Col md={6} xl={4}>
+              <MovieCard key={movie._id} movie={movie} onMovieClick={newSelectedMovie => { this.setSelectedMovie(newSelectedMovie); }} />
+            </Col>
+          ))
         }
-      </div>
+      </Row>
     );
   }
 
