@@ -5,6 +5,7 @@ import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
+import axios from 'axios';
 
 export function LoginView(props) {
   const [ username, setUsername ] = useState('');
@@ -12,8 +13,17 @@ export function LoginView(props) {
 
   const handleSubmit = event => {
     event.preventDefault();
-    console.log(username, password);
-    props.onLoggedIn(username);
+    axios.post('https://motionpics.herokuapp.com/login', {
+      Username: username,
+      Password: password
+    })
+    .then(response => {
+      const data = response.data;
+      props.onLoggedIn(data);
+    })
+    .catch(error => {
+      console.error('User not found.')
+    });
   }
 
   return (
