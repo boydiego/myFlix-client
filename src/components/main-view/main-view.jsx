@@ -1,11 +1,14 @@
 import React from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
 import { LoginView } from '../login-view/login-view';
 import { ResgistrationView } from '../resgistration-view/registration-view';
+import { Navbar } from '../navbar/navbar';
 
 export default class MainView extends React.Component {
 
@@ -24,10 +27,15 @@ export default class MainView extends React.Component {
     });
   }
 
-  onLoggedIn(user) {
+  onLoggedIn(authData) {
+    console.log(authData);
     this.setState({
-      user
+      user: authData.user.Username
     });
+
+    localStorage.setItem('token', authData.token);
+    localStorage.setItem('user', authData.user.Username);
+    this.getMovies(authData.token);
   }
 
   render() {
@@ -38,17 +46,31 @@ export default class MainView extends React.Component {
     if (movies.length === 0) return <div className="main-view" />;
 
     return (
-      <div className="main-view">
-        {selectedMovie
-          ? <MovieView movie={selectedMovie} onBackClick={newSelectedMovie => { this.setSelectedMovie(newSelectedMovie) }} />
-          : movies.map(movie => <MovieCard key={movie._id} movie={movie} onMovieClick={newSelectedMovie => { this.setSelectedMovie(newSelectedMovie); }} /> )
-        }
+      <div>
+        <Navbar user={user} />
+        <Row className='justify-content-md-center main-view'>
+          {selectedMovie
+            ? (
+              <Col md={10} lg={9} xl={8}>
+                <MovieView movie={selectedMovie} onBackClick={newSelectedMovie => { this.setSelectedMovie(newSelectedMovie) }} />
+              </Col>
+            )
+            : movies.map(movie => (
+              <Col md={6} xl={4}>
+                <MovieCard key={movie._id} movie={movie} onMovieClick={newSelectedMovie => { this.setSelectedMovie(newSelectedMovie); }} />
+              </Col>
+            ))
+          }
+        </Row>
       </div>
     );
   }
 
   componentDidMount() {
-    axios.get('https://motionpics.herokuapp.com/movies')
+    getMovies(token) {
+      axios.get('https://motionpics.herokuapp.com/movies', {
+        headers: { Authorization: `Bearer ${token}` }
+      })
       .then(response => {
         this.setState({
           movies: response.data
@@ -56,8 +78,10 @@ export default class MainView extends React.Component {
       })
       .catch(error => {
         console.error(error);
-      })
+      });
+    }
   }
+
 }
 
 MainView.propTypes = {

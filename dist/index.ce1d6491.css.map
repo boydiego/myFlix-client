@@ -1,1 +1,1 @@
-{"mappings":"AAEA","sources":["src/index.scss"],"sourcesContent":["$color: steelblue;\r\n\r\n.my-flix {\r\n  color: $color;\r\n}"],"names":[],"version":3,"file":"index.ce1d6491.css.map","sourceRoot":"/__parcel_source_root/"}
+{"mappings":"","sources":["src/index.scss"],"sourcesContent":["$primary-color: rgb(15, 36, 51);\r\n$primary-color-light: rgb(47, 67, 80);\r\n$secondary-color: rgb(255, 64, 129);\r\n$hover-dark: rgb(128, 128, 128);\r\n$hover-light: rgb(246, 249, 252);\r\n"],"names":[],"version":3,"file":"index.ce1d6491.css.map","sourceRoot":"/__parcel_source_root/"}

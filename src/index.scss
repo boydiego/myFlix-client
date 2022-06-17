@@ -1,5 +1,12 @@
-$color: steelblue;
+// primary & secondary colors
+$primary-color: rgb(15, 36, 51);
+$primary-color-light: rgb(47, 67, 80);
+$secondary-color: rgb(255, 64, 129);
 
-.my-flix {
-  color: $color;
-}
+// hover colors
+$hover-dark: rgb(128, 128, 128);
+$hover-light: rgb(246, 249, 252);
+
+// font colors
+$font-light: rgb(255, 255, 255);
+$font-dark: rgb(0, 0, 0);
